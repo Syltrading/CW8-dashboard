@@ -1,0 +1,33 @@
+name: Mise à jour CW8
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Installer yfinance
+        run: pip install yfinance
+
+      - name: Mise à jour du cours
+        run: python update_cw8.py
+
+      - name: Enregistrer la modification
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add cw8.json
+          git commit -m "Mise à jour cours CW8" || exit 0
+          git push
