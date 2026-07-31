@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Cours CW8</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 80px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 30px;
+    width: 350px;
+    margin: auto;
+    box-shadow: 0 0 10px #ccc;
+}
+
+#cw8-cours {
+    font-size: 40px;
+    color: #4caf50;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>📈 Cours CW8</h2>
+
+<div id="cw8-cours">
+Chargement...
+</div>
+
+<div id="cw8-date"></div>
+
+</div>
+
+
+<script>
+
+async function chargerCW8(){
+
+try {
+
+const reponse = await fetch("cw8.json");
+
+const data = await reponse.json();
+
+
+document.getElementById("cw8-cours").innerHTML =
+data.cours + " €";
+
+
+document.getElementById("cw8-date").innerHTML =
+"Mis à jour : " + data.date;
+
+
+}
+
+catch(e){
+
+document.getElementById("cw8-cours").innerHTML =
+"Indisponible";
+
+}
+
+}
+
+chargerCW8();
+
+</script>
+
+</body>
+</html>
